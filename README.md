@@ -24,5 +24,6 @@
 
     Palauttaa autentikointia varten tokenin esim.: ```71dd72c1-73b4-4b73-ae50-1edd3532820d```
 
-6) Lisää saatu token halutun microfrontin apiin axios configiin
-    esim.: ```{ Authorization: "bearer 71dd72c1-73b4-4b73-ae50-1edd3532820d" }```
+6) Lisää saatu token microfrontin apiin ```/src/api/api.tsx```
+
+    esim: ```const token = "71dd72c1-73b4-4b73-ae50-1edd3532820d";```
