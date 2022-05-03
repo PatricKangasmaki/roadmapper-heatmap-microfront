@@ -9,12 +9,13 @@ export const HeatmapInterface = () => {
   useEffect(() => {
     const getRoadmap = async () => {
       const firstRoadmap = await api.getRoadmap();
-      setRoadmap(firstRoadmap);
+      const tasks = await api.getTasks(firstRoadmap.id);
+      setRoadmap({ ...firstRoadmap, tasks: tasks });
     };
-    getRoadmap();
-  }, []);
+    if (!roadmap) getRoadmap();
+  }, [roadmap]);
 
-  if (!roadmap)
+  if (!roadmap || !roadmap.tasks)
     return (
       <div>
         <i>Error fetching the roadmap data..</i>

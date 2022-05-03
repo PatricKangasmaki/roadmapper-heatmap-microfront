@@ -1,5 +1,5 @@
 import Axios, { AxiosRequestConfig } from "axios";
-import { Roadmap } from "../types";
+import { Roadmap, Task } from "../types";
 
 /* 
   A new authorization key needs to be fetched from server each time it is restarted:
@@ -24,6 +24,12 @@ const getRoadmap = async () => {
   return response.data[0] as Roadmap;
 };
 
+const getTasks = async (roadmapId: number) => {
+  const tasks = await axios.get(`/roadmaps/${roadmapId}/tasks?eager=1`);
+  return tasks.data as Task[];
+};
+
 export const api = {
   getRoadmap,
+  getTasks,
 };
