@@ -1,29 +1,36 @@
-# Kuinka saada yhdistettyä microfrontit roadmapperin tietokantaan:
+# How to connect the microfrontend to roadmapper database:
 
-1) Vaihda serverin CORS ORIGIN vastaamaan composerin domainia
+### What to do in roadmapper:
 
-    /Server/.env ```CORS_ORIGIN=https://iteavisdom.org```
 
-2) Database (vaatii dockerin) käyntiin kansiosta /server
+1. Change the CORS ORIGIN of the server environment to match the Composer domain
 
-    ```yarn start-db```
-    
-3) Server käytiin kansiosta /server
-    
-    ```yarn start```
+   /Server/.env `CORS_ORIGIN=https://iteavisdom.org`
 
-4) Kirjaudu sisään roadmapperiin tokenin hakua varten
+2. Start the database from the /server folder (requires docker)
 
-    POST ```http://localhost:5000/users/login```
+   `yarn start-db`
 
-    POST requestin bodyyn: ```{"email": "admin.person1@test.com","password": "test"}```
+3. Start the server from the same /server folder
 
-5) Hae kirjautuneen käyttäjän token
+   `yarn start`
 
-    POST ```http://localhost:5000/users/mytoken```
+4. Log in to roadmapper to fetch the required token
 
-    Palauttaa autentikointia varten tokenin esim.: ```71dd72c1-73b4-4b73-ae50-1edd3532820d```
+   POST `http://localhost:5000/users/login`
 
-6) Lisää saatu token microfrontin apiin ```/src/api/api.tsx```
+   POST request body should be: `{"email": "admin.person1@test.com","password": "test"}`
 
-    esim: ```const token = "71dd72c1-73b4-4b73-ae50-1edd3532820d";```
+5. Fetch the token of the logged in user
+
+   POST `http://localhost:5000/users/mytoken`
+
+   Returns a token for authentication, for example: `71dd72c1-73b4-4b73-ae50-1edd3532820d`
+
+
+### What to do in the microfrontend:
+
+
+1) Add the fetched token to the microfront api  ```/src/api/api.tsx```
+
+    for example: ```const token = "71dd72c1-73b4-4b73-ae50-1edd3532820d";```
